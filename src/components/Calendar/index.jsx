@@ -9,6 +9,7 @@ export default ({ onDateClicked, events = [], onCalendarDateChanged }) => {
     let today = moment()
     const [monthYear, setMonthYear] = React.useState({ month: today.month(), year: moment().year() })
     const [eventMap, setEventMap] = React.useState({})
+    const [searchTerm, setSearchTerm] = React.useState('')
 
     React.useEffect(() => {
         let map = {}
@@ -34,7 +35,7 @@ export default ({ onDateClicked, events = [], onCalendarDateChanged }) => {
     }
 
     return (
-        <CalendarContext.Provider value={{ monthYear, eventMap, setMonthYear, changeMonth, onDateClicked }}>
+        <CalendarContext.Provider value={{ monthYear, eventMap, searchTerm, setMonthYear, changeMonth, onDateClicked, setSearchTerm }}>
             <CalendarControls />
             <CalendarTable />
         </CalendarContext.Provider>

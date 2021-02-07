@@ -3,7 +3,7 @@ import React from 'react'
 import { CalendarContext } from 'components/Calendar/calendarContext'
 
 export default ({ date, month, year, isDisabled = false }) => {
-    const { onDateClicked, eventMap } = React.useContext(CalendarContext)
+    const { onDateClicked, eventMap, searchTerm } = React.useContext(CalendarContext)
     const [showMore, setShowMore] = React.useState(false)
 
     let style = {
@@ -13,6 +13,17 @@ export default ({ date, month, year, isDisabled = false }) => {
     }
 
     let events = eventMap[`${date}-${month}-${year}`] || []
+
+    if (searchTerm.length > 0) {
+        let filteredEvents = []
+
+        for (let event of events) {
+            if (event.title.search(searchTerm) != -1) filteredEvents.push(event)
+        }
+
+        events = filteredEvents
+    }
+
     let eventsLength = events.length
 
     if (!showMore && eventsLength > 3) {
