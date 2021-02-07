@@ -3,7 +3,7 @@ import React from 'react'
 import { CalendarContext } from 'components/Calendar/calendarContext'
 
 export default ({ date, month, year, isDisabled = false }) => {
-    const { onDateClicked, eventMap, searchTerm } = React.useContext(CalendarContext)
+    const { onDateClicked, eventMap, searchTerm, onEventSelected } = React.useContext(CalendarContext)
     const [showMore, setShowMore] = React.useState(false)
 
     let style = {
@@ -35,7 +35,10 @@ export default ({ date, month, year, isDisabled = false }) => {
             <div>
                 {events.map(event => {
                     return (
-                        <p key={event.id} style={{ width: '100%', padding: 4, backgroundColor: 'blueviolet', boxSizing: 'border-box', margin: 2, color: 'white', fontSize: '12px', textAlign: 'center' }}>{event.title}</p>
+                        <p onClick={() => onEventSelected(event.id)} key={event.id} style={{
+                            width: '100%', padding: 4, backgroundColor: 'blueviolet',
+                            boxSizing: 'border-box', margin: 2, color: 'white', fontSize: '12px', textAlign: 'center', cursor: 'pointer'
+                        }}>{event.title}</p>
                     )
                 })}
                 {
@@ -43,7 +46,6 @@ export default ({ date, month, year, isDisabled = false }) => {
                         <button onClick={() => setShowMore(true)}>Show more</button>
                     )
                 }
-                {/* Events go here! */}
             </div>
         </div>
     )
