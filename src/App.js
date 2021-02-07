@@ -5,6 +5,7 @@ function App() {
   return (
     <div className="App">
       <Calendar onDateClicked={({ date, month, year }) => { console.log(`${date} ${month} ${year}`) }}
+        onCalendarDateChanged={data => console.log(data)}
         events={[
           {
             id: '1',

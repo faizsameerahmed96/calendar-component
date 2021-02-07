@@ -5,7 +5,7 @@ import moment from 'moment'
 
 import { CalendarContext } from './calendarContext'
 
-export default ({ onDateClicked, events = [] }) => {
+export default ({ onDateClicked, events = [], onCalendarDateChanged }) => {
     let today = moment()
     const [monthYear, setMonthYear] = React.useState({ month: today.month(), year: moment().year() })
     const [eventMap, setEventMap] = React.useState({})
@@ -21,15 +21,16 @@ export default ({ onDateClicked, events = [] }) => {
             }
         }
 
-        console.log(map)
-
         setEventMap(map)
     }, [events])
 
     const changeMonth = (noOfMonths) => {
         let date = moment().set('month', monthYear.month).set('year', monthYear.year)
         date.add('months', noOfMonths)
-        setMonthYear({ month: date.month(), year: date.year() })
+        let newData = { month: date.month(), year: date.year() }
+        setMonthYear(newData)
+        if (onCalendarDateChanged)
+            onCalendarDateChanged(newData)
     }
 
     return (
