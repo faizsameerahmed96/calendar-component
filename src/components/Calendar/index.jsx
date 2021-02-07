@@ -5,7 +5,7 @@ import moment from 'moment'
 
 import { CalendarContext } from './calendarContext'
 
-export default ({ }) => {
+export default ({ onDateClicked }) => {
     let today = moment()
     const [monthYear, setMonthYear] = React.useState({ month: today.month(), year: moment().year() })
 
@@ -16,7 +16,7 @@ export default ({ }) => {
     }
 
     return (
-        <CalendarContext.Provider value={{ monthYear, setMonthYear, changeMonth }}>
+        <CalendarContext.Provider value={{ monthYear, setMonthYear, changeMonth, onDateClicked }}>
             <CalendarControls />
             <CalendarTable />
         </CalendarContext.Provider>
