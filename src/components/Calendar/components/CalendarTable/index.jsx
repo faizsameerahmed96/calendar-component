@@ -2,16 +2,18 @@ import React from 'react'
 import moment from 'moment'
 
 import TableCell from './components/TableCell'
+import { CalendarContext } from 'components/Calendar/calendarContext'
 
 import { generateDates } from 'utils/dateUtils'
 
 export default ({ }) => {
-    let [month, year] = [4, 2021]
+    const { monthYear } = React.useContext(CalendarContext)
+    let { month, year } = monthYear
 
     let dates = generateDates(month, year)
 
     return (
-        <div style={{ width: '100vw', height: '100vh' }}>
+        <div style={{ width: '100%', height: '100vh' }}>
             <table style={{ width: '100%', borderSpacing: 0 }}>
                 <tr>
                     {moment.weekdaysShort().map(item => {
