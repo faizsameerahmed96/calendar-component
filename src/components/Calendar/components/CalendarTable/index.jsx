@@ -24,7 +24,7 @@ export default ({ }) => {
                 {dates.map(week => (
                     <tr style={{}}>
                         {week.map(day => (
-                            <td style={{ border: '1px solid #eee', borderCollapse: 'collapse', height: '15vh', width: `14vw`, padding: 0 }}>
+                            <td style={{ border: '1px solid #eee', borderCollapse: 'collapse', height: '15vh', maxHeight: '15vh', width: `14vw`, padding: 0 }}>
                                 <TableCell date={day.date} month={day.month} year={day.year} isDisabled={month != day.month} />
                             </td>
                         ))}

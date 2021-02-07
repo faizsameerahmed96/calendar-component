@@ -3,7 +3,8 @@ import React from 'react'
 import { CalendarContext } from 'components/Calendar/calendarContext'
 
 export default ({ date, month, year, isDisabled = false }) => {
-    const { onDateClicked } = React.useContext(CalendarContext)
+    const { onDateClicked, eventMap } = React.useContext(CalendarContext)
+    const [showMore, setShowMore] = React.useState(false)
 
     let style = {
         color: isDisabled ? '#888' : '#000',
@@ -11,11 +12,27 @@ export default ({ date, month, year, isDisabled = false }) => {
         cursor: isDisabled ? 'initial' : 'pointer'
     }
 
+    let events = eventMap[`${date}-${month}-${year}`] || []
+    let eventsLength = events.length
+
+    if (!showMore && eventsLength > 3) {
+        events = events.slice(0, 3)
+    }
 
     return (
-        <div onClick={onDateClicked ? () => onDateClicked({ date, month, year }) : undefined} style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', ...style, }}>
-            <p>{date}</p>
+        <div className='tableCell' onClick={onDateClicked ? () => onDateClicked({ date, month, year }) : undefined} style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowY: 'scroll', ...style }}>
+            <p style={{ margin: 0 }}>{date}</p>
             <div>
+                {events.map(event => {
+                    return (
+                        <p key={event.id} style={{ width: '100%', padding: 4, backgroundColor: 'blueviolet', boxSizing: 'border-box', margin: 2, color: 'white', fontSize: '12px' }}>{event.title}</p>
+                    )
+                })}
+                {
+                    (!showMore && eventsLength > 3) && (
+                        <button onClick={() => setShowMore(true)}>Show more</button>
+                    )
+                }
                 {/* Events go here! */}
             </div>
         </div>
