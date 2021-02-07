@@ -1,6 +1,7 @@
 import React from 'react'
 import './App.css';
 import Calendar from './components/Calendar'
+import AddEvent from './components/AddEvent'
 
 
 function App() {
@@ -63,12 +64,26 @@ function App() {
     },
   ])
 
+  const [addEvent, setAddEvent] = React.useState(null)
+
   return (
     <div className="App">
-      <Calendar onDateClicked={({ date, month, year }) => { console.log(`${date} ${month} ${year}`) }}
+      <Calendar onDateClicked={({ date, month, year }) => { setAddEvent({ date, month, year }) }}
         onCalendarDateChanged={data => console.log(data)}
-        events={store}
+        events={store.map(({ id, title, description, date, fromTime, toTime }) => ({ id, title, date }))}
       />
+
+
+      {addEvent && (
+        <div style={{ width: '100%', height: '100%', position: 'absolute', top: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ backgroundColor: 'black', opacity: 0.3, position: 'absolute', width: '100%', height: '100%' }} />
+          <AddEvent onEventCreated={event => {
+            console.log(event)
+            setStore([...store, event])
+            setAddEvent(null)
+          }} date={addEvent.date} month={addEvent.month} year={addEvent.year} onCancel={() => setAddEvent(null)} />
+        </div>
+      )}
     </div>
   );
 }

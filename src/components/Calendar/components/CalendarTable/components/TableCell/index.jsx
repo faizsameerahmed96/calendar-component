@@ -8,8 +8,7 @@ export default ({ date, month, year, isDisabled = false }) => {
 
     let style = {
         color: isDisabled ? '#888' : '#000',
-        backgroundColor: isDisabled ? '#fafafa' : '#fff',
-        cursor: isDisabled ? 'initial' : 'pointer'
+        backgroundColor: isDisabled ? '#fafafa' : '#fff'
     }
 
     let events = eventMap[`${date}-${month}-${year}`] || []
@@ -31,12 +30,12 @@ export default ({ date, month, year, isDisabled = false }) => {
     }
 
     return (
-        <div className='tableCell' onClick={onDateClicked ? () => onDateClicked({ date, month, year }) : undefined} style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowY: 'scroll', ...style }}>
-            <p style={{ margin: 0 }}>{date}</p>
+        <div className='tableCell' style={{ display: 'flex', flexDirection: 'column', height: '100%', width: '100%', overflowY: 'scroll', ...style }}>
+            <p onClick={onDateClicked ? () => onDateClicked({ date, month, year }) : undefined} style={{ margin: 0, width: '100%', cursor: isDisabled ? 'initial' : 'pointer', textAlign: 'center' }}>{date}</p>
             <div>
                 {events.map(event => {
                     return (
-                        <p key={event.id} style={{ width: '100%', padding: 4, backgroundColor: 'blueviolet', boxSizing: 'border-box', margin: 2, color: 'white', fontSize: '12px' }}>{event.title}</p>
+                        <p key={event.id} style={{ width: '100%', padding: 4, backgroundColor: 'blueviolet', boxSizing: 'border-box', margin: 2, color: 'white', fontSize: '12px', textAlign: 'center' }}>{event.title}</p>
                     )
                 })}
                 {
